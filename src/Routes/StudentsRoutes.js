@@ -9,13 +9,11 @@ import {
 
 const StudentRoutes = Router();
 
-StudentRoutes.route('/')
-  .get(getStudents)
-  .post(createStudent);
+StudentRoutes.route('/get/all-students').get(getStudents)
+StudentRoutes.route('/create/new-student').post(createStudent);
 
-StudentRoutes.route('/:StudentId')
-  .get(getStudentById)
-  .put(updateStudent)
-  .delete(deleteStudent);
+StudentRoutes.route('/get/student-by-id/:StudentId').get(getStudentById)
+StudentRoutes.route('/update/student-by-id/:StudentId').put(updateStudent)
+StudentRoutes.route('/get/student-by-id/:StudentId').delete(deleteStudent);
 
 export default StudentRoutes;

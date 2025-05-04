@@ -5,6 +5,7 @@ import { Code } from './enum/enum.js';
 import { HttpResponse } from './Response/Response.js';
 import { Status } from './enum/status.js';
 import StudentRoutes from './Routes/StudentsRoutes.js';
+import TeacherRoutes from './Routes/teachersRoutes.js';
 
 export class App {
   constructor(port = process.env.SERVER_PORT || 5000) {
@@ -22,12 +23,13 @@ export class App {
   }
 
   middleware() {
-    this.app.use(cors({ origin: '*' }));
+    this.app.use(cors({ origin: 'http://localhost:3000' }));
     this.app.use(express.json());
   }
 
   routes() {
 this.app.use("/students", StudentRoutes);
+this.app.use("/teachers",TeacherRoutes);
   }
 }
 

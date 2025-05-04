@@ -12,7 +12,7 @@ export const fetchStudents = async () => {
 };
 
 /**
- * Fetch a single patient by ID.
+ * Fetch a single student by ID.
  */
 export const fetchStudentById = async (id) => {
   const pool = await connection();
@@ -29,7 +29,7 @@ export const insertStudent = async (Student) => {
   return result;
 };
 
-/**
+/**   
  * Update an existing Student.
  */
 export const updateStudentById = async (Student, id) => {
