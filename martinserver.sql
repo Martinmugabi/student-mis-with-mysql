@@ -1,45 +1,51 @@
-use studentmis;
+-- Create database
+CREATE DATABASE mulago_hospital;
+USE mulago_hospital;
 
-create table teacher(
-id int primary key auto_increment,
-first_name varchar(30) not null,
-last_name varchar (30)not null,
-Email varchar(255) unique,
-address varchar(30)
+-- Users table for login
+CREATE TABLE users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL,
+    role ENUM('admin', 'staff') NOT NULL
 );
 
-create table course(
-id int primary key auto_increment,
-course_Name varchar (45) not null,
-faculty varchar(45)
+-- Patients table
+CREATE TABLE patients (
+    patient_id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    address VARCHAR(100),
+    contact VARCHAR(20),
+    email VARCHAR(50),
+    disease VARCHAR(100),
+    doctor_description TEXT,
+    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-create table course_units(
-id int primary key auto_increment,
-course_id int not null,
-course_unit_code varchar (45),
-course_unit_name varchar(45),
-constraint foreign key(course_id) references course(id) on delete cascade
+-- Staff table
+CREATE TABLE staff (
+    staff_id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(50),
+    address VARCHAR(100),
+    specialization VARCHAR(100),
+    doctor_description TEXT,
+    hire_date DATE
 );
 
-create table assignstudent_course(
-id int primary key auto_increment,
-student_id int not null,
-course_id int not null,
-course_unit_id int not null,
-constraint foreign key(student_id ) references students(id) on delete cascade,
-constraint foreign key course_fk(course_id) references course(id) on delete cascade,
-constraint foreign key course_unit_fk(course_unit_id) references course_units(id)
+-- Accounts table
+CREATE TABLE accounts (
+    account_id INT AUTO_INCREMENT PRIMARY KEY,
+    patient_id INT,
+    patient_first_name VARCHAR(50),
+    patient_last_name VARCHAR(50),
+    amount_paid DECIMAL(10,2),
+    disease VARCHAR(100),
+    payment_date DATE,
+    FOREIGN KEY (patient_id) REFERENCES patients(patient_id)
 );
 
-create table assignteacher_course(
-id int primary key auto_increment,
-teacher_id int not null,
-course_id int not null,
-course_unit_id int not null,
-constraint foreign key(teacher_id ) references teacher(id) on delete cascade,
-constraint foreign key course_fk(course_id) references course(id) on delete cascade,
-constraint foreign key course_unit_fk(course_unit_id) references course_units(id)
-);
-
-
+-- Insert sample admin user
+INSERT INTO users (username, password, role) VALUES ('admin', 'admin123', 'admin'); 

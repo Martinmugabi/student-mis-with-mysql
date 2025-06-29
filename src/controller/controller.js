@@ -1,8 +1,6 @@
 // controllers/StudentController.js
 import { request,response } from "express";
-import { Student } from "../interface/Students.js";
-import { Code } from "../enum/enum.js";
-import { Status } from "../enum/status.js";
+import { Student } from "../types/Students.js";
 import { HttpResponse } from "../Response/Response.js";
 import {
   fetchStudents,
@@ -18,9 +16,9 @@ import {
 export const getStudents = async (req, res) => {
   try {
     const [rows] = await fetchStudents();
-    res.status(Code.OK).send(new HttpResponse(Code.OK, Status.OK, "Students retrieved", rows));
+    res.status(200).send(new HttpResponse(200, "OK", "Students retrieved", rows));
   } catch (err) {
-    res.status(Code.INTERNAL_SERVER_ERROR).send(new HttpResponse(Code.INTERNAL_SERVER_ERROR, Status.INTERNAL_SERVER_ERROR, "An error occurred"));
+    res.status(500).send(new HttpResponse(500, "INTERNAL SERVER ERROR", "An error occurred"));
   }
 };
 
@@ -29,12 +27,12 @@ export const getStudentById = async (req, res) => {
   try {
     const [rows] = await fetchStudentById(req.params.StudentId);
     if (rows.length > 0) {
-      res.status(Code.OK).send(new HttpResponse(Code.OK, Status.OK, "Student retrieved", rows));
+      res.status(200).send(new HttpResponse(200, "OK", "Student retrieved", rows));
     } else {
-      res.status(Code.NOT_FOUND).send(new HttpResponse(Code.NOT_FOUND, Status.NOT_FOUND, "Student does not exist"));
+      res.status(404).send(new HttpResponse(404, "NOT_FOUND", "Student does not exist"));
     }
   } catch (err) {
-    res.status(Code.INTERNAL_SERVER_ERROR).send(new HttpResponse(Code.INTERNAL_SERVER_ERROR, Status.INTERNAL_SERVER_ERROR, "An error occurred"));
+    res.status(500).send(new HttpResponse(500, "INTERNAL_SERVER_ERROR", "An error occurred"));
   }
 };
 

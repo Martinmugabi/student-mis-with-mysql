@@ -1,6 +1,4 @@
 import { deleteteacherById, fetchteacherById, fetchTeachers, insertteacher, updateteacherById } from "../service/TeacherServices.js";
-import { Code } from "../enum/enum.js";
-import { Status } from "../enum/status.js";
 import { HttpResponse } from "../Response/Response.js";
 //import { Teacher } from "../interface/Teacher.js";
 
